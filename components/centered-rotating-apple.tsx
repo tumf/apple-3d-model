@@ -3,9 +3,10 @@
 import React, { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
+import * as THREE from 'three'
 
 function Apple() {
-  const appleRef = useRef()
+  const appleRef = useRef<THREE.Group>(null)
   
   useFrame((state, delta) => {
     if (appleRef.current) {
