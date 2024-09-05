@@ -9,7 +9,7 @@ const ROTATION_SPEED = 0.5
 const APPLE_BODY_POSITION = [0, -0.5, 0] as const
 const APPLE_STEM_POSITION = [0, 0.5, 0] as const
 
-const Apple = React.memo(() => {
+const Apple: React.FC = React.memo(() => {
   const appleRef = useRef<THREE.Group>(null)
   
   const rotateApple = useCallback((delta: number) => {
@@ -39,7 +39,7 @@ const Apple = React.memo(() => {
 
 Apple.displayName = 'Apple'
 
-export function CenteredRotatingApple() {
+export function CenteredRotatingApple(): React.JSX.Element {
   return (
     <div style={{ width: '100%', height: '400px' }}>
       <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
