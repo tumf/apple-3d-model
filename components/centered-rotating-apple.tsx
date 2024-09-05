@@ -1,44 +1,36 @@
-'use client';
+'use client'
 
-import React, { useRef, useCallback } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import * as THREE from 'three';
+import React, { useRef } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
 
-const ROTATION_SPEED = 0.5;
-const APPLE_BODY_POSITION = [0, -0.5, 0] as const;
-const APPLE_STEM_POSITION = [0, 0.5, 0] as const;
-
-const Apple: React.FC = React.memo(() => {
-  const appleRef = useRef<THREE.Group>(null);
-  const rotateApple = useCallback((delta: number) => {
+function Apple() {
+  const appleRef = useRef()
+  
+  useFrame((state, delta) => {
     if (appleRef.current) {
-      appleRef.current.rotation.y += delta * ROTATION_SPEED;
+      appleRef.current.rotation.y += delta * 0.5
     }
-  }, []);
-
-  useFrame((_, delta) => rotateApple(delta));
+  })
 
   return (
     <group ref={appleRef}>
       {/* りんごの本体 */}
-      <mesh position={APPLE_BODY_POSITION}>
+      <mesh position={[0, -0.5, 0]}>
         <sphereGeometry args={[1, 32, 32]} />
         <meshBasicMaterial color="red" wireframe={true} />
       </mesh>
       
       {/* りんごの茎 */}
-      <mesh position={APPLE_STEM_POSITION}>
+      <mesh position={[0, 0.5, 0]}>
         <cylinderGeometry args={[0.1, 0.1, 0.3, 8]} />
         <meshBasicMaterial color="brown" wireframe={true} />
       </mesh>
     </group>
-  );
-});
+  )
+}
 
-Apple.displayName = 'Apple'
-
-export function CenteredRotatingApple(): React.JSX.Element {
+export function CenteredRotatingApple() {
   return (
     <div style={{ width: '100%', height: '400px' }}>
       <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
@@ -54,5 +46,5 @@ export function CenteredRotatingApple(): React.JSX.Element {
         />
       </Canvas>
     </div>
-  );
+  )
 }
