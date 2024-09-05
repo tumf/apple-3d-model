@@ -1,24 +1,23 @@
-'use client'
+'use client';
 
-import React, { useRef, useCallback, useMemo } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
-import * as THREE from 'three'
+import React, { useRef, useCallback } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import * as THREE from 'three';
 
-const ROTATION_SPEED = 0.5
-const APPLE_BODY_POSITION = [0, -0.5, 0] as const
-const APPLE_STEM_POSITION = [0, 0.5, 0] as const
+const ROTATION_SPEED = 0.5;
+const APPLE_BODY_POSITION = [0, -0.5, 0] as const;
+const APPLE_STEM_POSITION = [0, 0.5, 0] as const;
 
 const Apple: React.FC = React.memo(() => {
-  const appleRef = useRef<THREE.Group>(null)
-  
+  const appleRef = useRef<THREE.Group>(null);
   const rotateApple = useCallback((delta: number) => {
     if (appleRef.current) {
-      appleRef.current.rotation.y += delta * ROTATION_SPEED
+      appleRef.current.rotation.y += delta * ROTATION_SPEED;
     }
-  }, [])
+  }, []);
 
-  useFrame((_, delta) => rotateApple(delta))
+  useFrame((_, delta) => rotateApple(delta));
 
   return (
     <group ref={appleRef}>
@@ -34,8 +33,8 @@ const Apple: React.FC = React.memo(() => {
         <meshBasicMaterial color="brown" wireframe={true} />
       </mesh>
     </group>
-  )
-})
+  );
+});
 
 Apple.displayName = 'Apple'
 
@@ -55,5 +54,5 @@ export function CenteredRotatingApple(): React.JSX.Element {
         />
       </Canvas>
     </div>
-  )
+  );
 }
